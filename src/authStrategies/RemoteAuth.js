@@ -168,7 +168,12 @@ class RemoteAuth extends BaseAuthStrategy {
                 .on('error', err => reject(err))
                 .on('finish', () => resolve());
         });
-        await fs.promises.unlink(compressedSessionPath);
+        
+        try {
+        await fs.promises.unlink(zipPath);
+        } catch (err) {
+        if (err.code !== 'ENOENT') throw err;
+        }
     }
 
     async deleteMetadata() {
