@@ -170,9 +170,9 @@ class RemoteAuth extends BaseAuthStrategy {
         });
         
         try {
-        await fs.promises.unlink(zipPath);
+            await fs.promises.unlink(compressedSessionPath);
         } catch (err) {
-        if (err.code !== 'ENOENT') throw err;
+            if (err.code !== 'ENOENT') throw err;
         }
     }
 
